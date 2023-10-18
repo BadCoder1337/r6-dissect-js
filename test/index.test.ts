@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test";
-import { dissect, dissectMatch } from ".";
+import { dissect, dissectMatch } from "../src";
 
 test("can read a replay", async () => {
 	const { data, error } = await dissect("replays/test.rec");
