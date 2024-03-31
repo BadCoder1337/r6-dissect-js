@@ -1,39 +1,47 @@
 {
-	"name": "r6-dissect",
-	"description": "Bun API for Rainbow Six: Siege's Dissect (.rec) format.",
-	"module": "index.ts",
-	"type": "module",
+	"name": "r6-dissect-web",
+	"description": "JS API for Rainbow Six: Siege's Dissect (.rec) format.",
+	"main": "index.js",
 	"version": "1.5.0",
-	"author": {
-		"name": "redraskal",
-		"url": "https://github.com/redraskal",
-		"email": "ben@ryben.dev"
-	},
+	"type": "module",
+	"contributors": [
+		{
+			"name": "redraskal",
+			"url": "https://github.com/redraskal",
+			"email": "ben@ryben.dev"
+		},
+		{
+			"name": "BadCoder1337",
+			"url": "https://github.com/BadCoder1337",
+			"email": "fazebook@rainbow6.ru"
+		}
+	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/redraskal/r6-dissect-bun"
+		"url": "https://github.com/BadCoder1337/r6-dissect-web"
 	},
-	"bugs": "https://github.com/redraskal/r6-dissect-bun/issues",
-	"homepage": "https://github.com/redraskal/r6-dissect-bun",
+	"bugs": "https://github.com/BadCoder1337/r6-dissect-web/issues",
+	"homepage": "https://github.com/BadCoder1337/r6-dissect-web",
 	"files": [
-		"index.ts",
-		"worker.ts",
-		"libr6dissect.so",
-		"libr6dissect.dylib"
-	],
-	"os": [
-		"linux",
-		"darwin"
+		"index.ts"
 	],
 	"scripts": {
-		"prettier": "prettier --write ."
+		"prettier": "prettier --write .",
+		"clean": "rm -rf dist",
+		"test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
+		"rebuild": "yarn clean && yarn build",
+		"build": "yarn build:ts && yarn build:go",
+		"build:ts": "tsc",
+		"build:go": "cd src/lib && GOOS=js GOARCH=wasm go build -v -o ../../dist/dissect.wasm && cp $(go env GOROOT)/misc/wasm/wasm_exec.js ../../dist"
 	},
 	"devDependencies": {
-		"bun-types": "latest",
-		"prettier": "^3.0.0"
+		"@types/golang-wasm-exec": "^1.15.2",
+		"@types/jest": "^29.5.12",
+		"@types/node": "^20.12.2",
+		"jest": "^29.7.0",
+		"prettier": "^3.0.0",
+		"typescript": "^5.2.2"
 	},
-	"peerDependencies": {
-		"typescript": "^5.0.0"
-	}
+	"packageManager": "yarn@3.6.4"
 }
